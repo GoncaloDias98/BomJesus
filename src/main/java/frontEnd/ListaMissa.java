@@ -123,8 +123,8 @@ public class ListaMissa extends javax.swing.JFrame {
         String titulo = model.getValueAt(index, 1).toString();
         String descricao = model.getValueAt(index, 2).toString();
       //  String orador = model.getValueAt(index, 3).toString();
-      //  String horaInicio = model.getValueAt(index, 4).toString();
-       // String horaFim = model.getValueAt(index, 5).toString();
+        String horaInicio = model.getValueAt(index, 4).toString();
+        String horaFim = model.getValueAt(index, 5).toString();
         
         detalhe.setVisible(true);
         detalhe.pack();
@@ -133,9 +133,9 @@ public class ListaMissa extends javax.swing.JFrame {
         detalhe.jLabel_id.setText(id);
         detalhe.jLabel_titulo.setText(titulo);
         detalhe.jLabel_descricao.setText(descricao);
-       /* detalhe.jLabel_orador.setText(orador);
+       // detalhe.jLabel_orador.setText(orador);
         detalhe.jLabel_horainicio.setText(horaInicio);
-        detalhe.jLabel_horafim.setText(horaFim);*/
+        detalhe.jLabel_horafim.setText(horaFim);
     }//GEN-LAST:event_tblListaMissasMouseClicked
 
     public void getDB() throws Exception {
