@@ -1,5 +1,10 @@
 package backEnd;
 
+import static frontEnd.Inicio.getConnection;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 public class Orador {
   private String nome;
   private String cargo;
@@ -24,4 +29,7 @@ public class Orador {
   public void setCargo(String cargo) {
     this.cargo = cargo;
   }
+
+
 }
+

@@ -11,10 +11,7 @@ import java.sql.ResultSet;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Majey
- */
+
 public class Operations {
     public static boolean isLogin(String username, String password, JFrame frame){
         try{
