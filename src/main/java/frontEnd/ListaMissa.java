@@ -132,7 +132,7 @@ public class ListaMissa extends javax.swing.JFrame {
         String id = model.getValueAt(index, 0).toString();
         String titulo = model.getValueAt(index, 1).toString();
         String descricao = model.getValueAt(index, 2).toString();
-      //  String orador = model.getValueAt(index, 3).toString();
+        String orador = model.getValueAt(index, 3).toString();
         String horaInicio = model.getValueAt(index, 4).toString();
         String horaFim = model.getValueAt(index, 5).toString();
         
@@ -143,7 +143,7 @@ public class ListaMissa extends javax.swing.JFrame {
         detalhe.jLabel_id.setText(id);
         detalhe.jLabel_titulo.setText(titulo);
         detalhe.jLabel_descricao.setText(descricao);
-       // detalhe.jLabel_orador.setText(orador);
+        detalhe.jLabel_orador.setText(orador);
         detalhe.jLabel_horainicio.setText(horaInicio);
         detalhe.jLabel_horafim.setText(horaFim);
     }//GEN-LAST:event_tblListaMissasMouseClicked
@@ -161,13 +161,14 @@ public class ListaMissa extends javax.swing.JFrame {
         model.addColumn("id");
         model.addColumn("Titulo");
         model.addColumn("Descrição");
+        model.addColumn("Cargo");
         model.addColumn("Orador");
         model.addColumn("Hora de Inicio");
         model.addColumn("Hora de Fim");
         
        
       try{
-          String query = "SELECT idMissa,titulo,descricao,orador_idOrador,horaInicio, horaFim FROM missa";
+          String query = "SELECT idMissa,titulo,descricao,orador_Oradornome,horaInicio, horaFim FROM missa";
           Statement st = conn.createStatement();
           ResultSet rs = st.executeQuery(query);
          

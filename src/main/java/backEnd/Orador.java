@@ -1,9 +1,5 @@
 package backEnd;
 
-import static frontEnd.Inicio.getConnection;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
 public class Orador {
   private String nome;
