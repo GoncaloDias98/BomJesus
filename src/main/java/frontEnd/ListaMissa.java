@@ -28,6 +28,7 @@ public class ListaMissa extends javax.swing.JFrame {
     ListaMissaDetalhe detalhe = new ListaMissaDetalhe();
     public ListaMissa() {
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);  
     }
 
     /**
@@ -181,7 +182,6 @@ public class ListaMissa extends javax.swing.JFrame {
                   rs.getString("horaInicio"),
                   rs.getString("horaFim")
               });
-       
           }
           rs.close();
           st.close();

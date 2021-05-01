@@ -7,7 +7,6 @@ package frontEnd;
 import backEnd.LoginSession;
 import backEnd.Logout;
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 public class Dashboard extends javax.swing.JFrame {
 
     /**
