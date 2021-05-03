@@ -10,9 +10,6 @@ import static frontEnd.Inicio.getConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -22,12 +19,12 @@ import javax.swing.JOptionPane;
  *
  * @author gonca
  */
-public class RegistarMissa extends javax.swing.JFrame {
-private Inicio inicio;
+public class RegistarBatizado extends javax.swing.JFrame {
+
     /**
      * Creates new form RegistarMissaa
      */
-    public RegistarMissa() {
+    public RegistarBatizado() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);  
         fillCombo();
@@ -46,11 +43,6 @@ public String oradortxt(){
 public int oradorID(){
 int id = Integer.parseInt(lblOradorID.getText());
  return id;
-}
-
-public int horaInicio(){
-int inicio = Integer.parseInt(horaInicio.getText());
- return inicio;
 }
 
 /**
@@ -74,9 +66,9 @@ int inicio = Integer.parseInt(horaInicio.getText());
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         lblOradorID = new javax.swing.JLabel();
-        horaInicio = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -130,17 +122,10 @@ int inicio = Integer.parseInt(horaInicio.getText());
 
         jTextField1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
-        try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        jTextField2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jTextField2.setText("jTextField2");
 
-        try {
-            horaInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        jFormattedTextField1.setText("jFormattedTextField1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -163,13 +148,13 @@ int inicio = Integer.parseInt(horaInicio.getText());
                             .addComponent(jLabel6)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(horaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(139, 139, 139)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(186, 186, 186)
                                 .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 130, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 254, Short.MAX_VALUE)))
                 .addGap(12, 12, 12))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jTextField1)
@@ -196,9 +181,9 @@ int inicio = Integer.parseInt(horaInicio.getText());
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(horaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -210,11 +195,11 @@ int inicio = Integer.parseInt(horaInicio.getText());
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(115, Short.MAX_VALUE)
+                .addContainerGap(63, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(122, Short.MAX_VALUE))
+                        .addContainerGap(70, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton1)
@@ -254,7 +239,7 @@ int inicio = Integer.parseInt(horaInicio.getText());
             oradorID();
             Missa.postDB();
         } catch (Exception ex) {
-            Logger.getLogger(RegistarMissa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegistarBatizado.class.getName()).log(Level.SEVERE, null, ex);
         }
         dispose();
     }//GEN-LAST:event_botaoActionPerformed
@@ -306,8 +291,7 @@ int inicio = Integer.parseInt(horaInicio.getText());
   }
 }
     
-      
-      
+    
     /**
      * @param args the command line arguments
      */
@@ -325,21 +309,27 @@ int inicio = Integer.parseInt(horaInicio.getText());
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegistarMissa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistarBatizado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegistarMissa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistarBatizado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegistarMissa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistarBatizado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegistarMissa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistarBatizado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegistarMissa().setVisible(true);
+                new RegistarBatizado().setVisible(true);
             }
         });
     }
@@ -347,7 +337,6 @@ int inicio = Integer.parseInt(horaInicio.getText());
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botao;
     private javax.swing.JComboBox<String> comboOrador;
-    private javax.swing.JFormattedTextField horaInicio;
     private javax.swing.JButton jButton1;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
@@ -358,6 +347,7 @@ int inicio = Integer.parseInt(horaInicio.getText());
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lblOradorID;
     private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables

@@ -2,6 +2,9 @@ package frontEnd;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Inicio {
 
@@ -28,5 +31,25 @@ public class Inicio {
     Dashboard dash= new Dashboard();
     dash.setVisible(true);
   }
+  
+  
+  public LocalTime Hora(String data) {
+        //CRIO O OBJETO formatodata com o formato ("d/MM/yyyy")
+        DateTimeFormatter formatohora = DateTimeFormatter.ofPattern("hh:mm");
+
+        //crio o objeto localdate que formata a informação intoduzida para o formato que eu paremetrizei em formatodata
+        LocalTime localHora = LocalTime.parse(data, formatohora);
+
+        return localHora;
+    }
+  
+  public String Horatexto(LocalTime data) {
+        DateTimeFormatter formatohora = DateTimeFormatter.ofPattern("hh:mm");
+
+        //crio o objeto localdate que formata a informação intoduzida para o formato que eu parameterizei em formatodata
+        String hora = formatohora.format(data);
+
+        return hora;
+    }
 
 }

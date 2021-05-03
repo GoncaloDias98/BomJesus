@@ -5,7 +5,6 @@
  */
 package frontEnd;
 
-import backEnd.Missa;
 
 import static frontEnd.Inicio.getConnection;
 import java.sql.Connection;
@@ -26,9 +25,10 @@ public class ListaBatizado extends javax.swing.JFrame {
     /**
      * Creates new form ListaMissa
      */
-    ListaMissaDetalhe detalhe = new ListaMissaDetalhe();
+    ListaBatizadoDetalhe detalhe = new ListaBatizadoDetalhe();
     public ListaBatizado() {
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);  
     }
 
     /**
@@ -42,7 +42,8 @@ public class ListaBatizado extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tblListaMissas = new javax.swing.JTable();
+        tblListaBatizados = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -54,9 +55,10 @@ public class ListaBatizado extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Lista Missas");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel1.setText("Lista Batizados");
 
-        tblListaMissas.setModel(new javax.swing.table.DefaultTableModel(
+        tblListaBatizados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -67,35 +69,47 @@ public class ListaBatizado extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblListaMissas.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblListaBatizados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblListaMissasMouseClicked(evt);
+                tblListaBatizadosMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(tblListaMissas);
+        jScrollPane3.setViewportView(tblListaBatizados);
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton1.setText("Registar Batizado");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(jLabel1))
+                        .addContainerGap(34, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 957, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(332, 332, 332)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -114,15 +128,15 @@ public class ListaBatizado extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowOpened
 
-    private void tblListaMissasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListaMissasMouseClicked
+    private void tblListaBatizadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListaBatizadosMouseClicked
         
-        int index = tblListaMissas.getSelectedRow();
-        TableModel model = tblListaMissas.getModel();
+        int index = tblListaBatizados.getSelectedRow();
+        TableModel model = tblListaBatizados.getModel();
         
         String id = model.getValueAt(index, 0).toString();
         String titulo = model.getValueAt(index, 1).toString();
         String descricao = model.getValueAt(index, 2).toString();
-      //  String orador = model.getValueAt(index, 3).toString();
+        String orador = model.getValueAt(index, 3).toString();
         String horaInicio = model.getValueAt(index, 4).toString();
         String horaFim = model.getValueAt(index, 5).toString();
         
@@ -133,10 +147,16 @@ public class ListaBatizado extends javax.swing.JFrame {
         detalhe.jLabel_id.setText(id);
         detalhe.jLabel_titulo.setText(titulo);
         detalhe.jLabel_descricao.setText(descricao);
-       // detalhe.jLabel_orador.setText(orador);
+        detalhe.jLabel_orador.setText(orador);
         detalhe.jLabel_horainicio.setText(horaInicio);
         detalhe.jLabel_horafim.setText(horaFim);
-    }//GEN-LAST:event_tblListaMissasMouseClicked
+    }//GEN-LAST:event_tblListaBatizadosMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        RegistarBatizado batizado = new RegistarBatizado();
+        batizado.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public void getDB() throws Exception {
         Connection conn = getConnection();
@@ -151,25 +171,24 @@ public class ListaBatizado extends javax.swing.JFrame {
         
        
       try{
-          String query = "SELECT idMissa,titulo,descricao,orador_idOrador,horaInicio, horaFim FROM missa";
+          String query = "SELECT idBatizado,titulo,descricao,orador_nome,orador_cargo,horaInicio, horaFim FROM batizado";
           Statement st = conn.createStatement();
           ResultSet rs = st.executeQuery(query);
          
           while(rs.next()){
               model.addRow(new Object[] {
-                  rs.getString("idMissa"),
+                  rs.getString("idBatizado"),
                   rs.getString("titulo"),
                   rs.getString("descricao"),
-                  rs.getString("orador_idOrador"),
+                  rs.getString("Orador_cargo")+ " " + rs.getString("orador_nome"),
                   rs.getString("horaInicio"),
                   rs.getString("horaFim")
               });
-       
           }
           rs.close();
           st.close();
           conn.close();
-          tblListaMissas.setModel(model);
+          tblListaBatizados.setModel(model);
       }catch(Exception e){System.out.println(e);}
 
   }
@@ -213,8 +232,9 @@ public class ListaBatizado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable tblListaMissas;
+    private javax.swing.JTable tblListaBatizados;
     // End of variables declaration//GEN-END:variables
 }
