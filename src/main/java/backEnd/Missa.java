@@ -63,25 +63,28 @@ public class Missa {
   public void setIdMissa(int idMissa) {
     this.idMissa = idMissa;
   }
-
-
+  
+  
   public static void postDB() throws Exception{
     RegistarMissa missas = new RegistarMissa();
-    String titulo = missas.titulotxt();
+    String titulo = missas.tituloTXT();
     String orador = missas.oradortxt();
+    String horainicio = missas.horaInicio();
     int id = missas.oradorID();
+    
+    
     try{
+      System.out.println(horainicio);
       Connection conn = getConnection();
-      PreparedStatement posted = conn.prepareStatement("INSERT INTO missa (titulo, Orador_idOrador, Orador_nome) VALUES ('"+titulo+",''"+id+",' '"+orador+"')");
+      PreparedStatement posted = conn.prepareStatement("INSERT INTO missa ( Orador_idOrador,Orador_nome, horaInicio) VALUES ('"+id+","+orador+","+horainicio+"')");
       posted.executeUpdate();
   } catch (Exception e){
       System.out.println(e);
     }
     finally {
-      System.out.println(titulo +id+ orador);
+      System.out.println(titulo +id+ horainicio + orador);
       System.out.println("Insert into Missa Concluido");
     }
   }
-  
   
 }

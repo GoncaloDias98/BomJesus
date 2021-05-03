@@ -35,7 +35,7 @@ public class Inicio {
   
   public LocalTime Hora(String data) {
         //CRIO O OBJETO formatodata com o formato ("d/MM/yyyy")
-        DateTimeFormatter formatohora = DateTimeFormatter.ofPattern("hh:mm");
+        DateTimeFormatter formatohora = DateTimeFormatter.ofPattern("HH:mm");
 
         //crio o objeto localdate que formata a informação intoduzida para o formato que eu paremetrizei em formatodata
         LocalTime localHora = LocalTime.parse(data, formatohora);
@@ -44,7 +44,7 @@ public class Inicio {
     }
   
   public String Horatexto(LocalTime data) {
-        DateTimeFormatter formatohora = DateTimeFormatter.ofPattern("hh:mm");
+        DateTimeFormatter formatohora = DateTimeFormatter.ofPattern("HH:mm");
 
         //crio o objeto localdate que formata a informação intoduzida para o formato que eu parameterizei em formatodata
         String hora = formatohora.format(data);

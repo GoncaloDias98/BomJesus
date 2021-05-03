@@ -5,11 +5,12 @@
  */
 package frontEnd;
 
-import backEnd.Missa;
 import static frontEnd.Inicio.getConnection;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -25,25 +26,13 @@ public class RegistarBatizado extends javax.swing.JFrame {
      * Creates new form RegistarMissaa
      */
     public RegistarBatizado() {
+        Inicio inicio = new Inicio();
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);  
         fillCombo();
+        horaInicio.setText(inicio.Horatexto(LocalTime.now()));
+        horaFim.setText(inicio.Horatexto(LocalTime.now()));
     }
-public String titulotxt(){
-    String titulo = txtTitulo.getText();
-    return titulo;
-}
-
-public String oradortxt(){
-    String orador =(String) comboOrador.getSelectedItem();
-    return orador;
-
-}
-
-public int oradorID(){
-int id = Integer.parseInt(lblOradorID.getText());
- return id;
-}
 
 /**
      * This method is called from within the constructor to initialize the form.
@@ -59,16 +48,17 @@ int id = Integer.parseInt(lblOradorID.getText());
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtTitulo = new javax.swing.JTextField();
+        txttitulo = new javax.swing.JTextField();
         comboOrador = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        txtdescricao = new javax.swing.JTextField();
+        horaFim = new javax.swing.JFormattedTextField();
         lblOradorID = new javax.swing.JLabel();
+        horaInicio = new javax.swing.JFormattedTextField();
+        lblCargo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,10 +84,10 @@ int id = Integer.parseInt(lblOradorID.getText());
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("Titulo");
 
-        txtTitulo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txtTitulo.addActionListener(new java.awt.event.ActionListener() {
+        txttitulo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txttitulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTituloActionPerformed(evt);
+                txttituloActionPerformed(evt);
             }
         });
 
@@ -120,12 +110,21 @@ int id = Integer.parseInt(lblOradorID.getText());
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel6.setText("Descrição");
 
-        jTextField1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtdescricao.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
-        jTextField2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jTextField2.setText("jTextField2");
+        try {
+            horaFim.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
-        jFormattedTextField1.setText("jFormattedTextField1");
+        try {
+            horaInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        lblCargo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -136,89 +135,90 @@ int id = Integer.parseInt(lblOradorID.getText());
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTitulo))
+                        .addComponent(txttitulo))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboOrador, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblOradorID, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel6)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(186, 186, 186)
+                                .addGap(18, 18, 18)
+                                .addComponent(horaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(139, 139, 139)
                                 .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 254, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(horaFim, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 485, Short.MAX_VALUE)))
                 .addGap(12, 12, 12))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jTextField1)
+                .addComponent(txtdescricao)
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(comboOrador, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
+                .addComponent(lblOradorID, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(txttitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txtTitulo)
-                        .addGap(18, 18, 18)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(comboOrador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblOradorID, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(35, 35, 35)
+                        .addComponent(jLabel3)
+                        .addComponent(lblCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(comboOrador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblOradorID, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                    .addComponent(horaFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(horaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(txtdescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(117, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(63, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(70, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(botao)
-                        .addGap(39, 39, 39))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(915, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botao)
+                .addGap(39, 39, 39))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(39, 39, 39)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botao)
                     .addComponent(jButton1))
@@ -228,16 +228,13 @@ int id = Integer.parseInt(lblOradorID.getText());
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloActionPerformed
+    private void txttituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttituloActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTituloActionPerformed
+    }//GEN-LAST:event_txttituloActionPerformed
 
     private void botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoActionPerformed
         try {
-            titulotxt();
-            oradortxt();
-            oradorID();
-            Missa.postDB();
+            postDB();
         } catch (Exception ex) {
             Logger.getLogger(RegistarBatizado.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -258,13 +255,15 @@ int id = Integer.parseInt(lblOradorID.getText());
     void UpdateComboId(){
      try{
       Connection conn = getConnection();
-      String sql ="SELECT idOrador from orador where nome= '" +comboOrador.getSelectedItem().toString() +"'";
+      String sql ="SELECT idOrador,cargo from orador where nome= '" +comboOrador.getSelectedItem().toString() +"'";
       Statement st = conn.prepareStatement(sql);
       ResultSet rs = st.executeQuery(sql);
       
       while(rs.next()){
       String id = rs.getString("idOrador");
+      String cargo = rs.getString("cargo");
       lblOradorID.setText(id);
+      lblCargo.setText(cargo);
       }
   
   }catch(Exception e){
@@ -272,7 +271,7 @@ int id = Integer.parseInt(lblOradorID.getText());
   }
     }
     
-      void fillCombo(){
+  void fillCombo(){
   try{
       Connection conn = getConnection();
       String sql ="SELECT nome, cargo from orador";
@@ -282,7 +281,7 @@ int id = Integer.parseInt(lblOradorID.getText());
       while(rs.next()){
       String name = rs.getString("nome");
       String cargo = rs.getString("cargo");
-      comboOrador.addItem(cargo + " " +name);
+      comboOrador.addItem(name);
       }
       
   
@@ -291,7 +290,32 @@ int id = Integer.parseInt(lblOradorID.getText());
   }
 }
     
+      
+  void postDB() throws Exception{
+    String titulo = txttitulo.getText();
+    String descricao = txtdescricao.getText();
+    String orador = (String) comboOrador.getSelectedItem();
+    String horainicio = horaInicio.getText();
+    String horafim = horaFim.getText();
+    int id = Integer.parseInt(lblOradorID.getText());
+    String cargo = lblCargo.getText();
     
+    try{
+      System.out.println(horainicio);
+      Connection conn = getConnection();
+      PreparedStatement posted = conn.prepareStatement("INSERT INTO missa (Orador_idOrador, Orador_nome, Orador_cargo, horaInicio, horaFim, descricao, titulo) VALUES ('"+id+"','"+orador+"','"+cargo+"','"+horainicio+"','"+horafim+"','"+descricao+"','"+titulo+"')");
+      posted.executeUpdate();
+  } catch (Exception e){
+      System.out.println(e);
+    }
+    finally {
+      System.out.println("titulo: " + titulo);
+      System.out.println("Descriçao: "+ descricao);
+      System.out.println("Orador: " + cargo + " " +orador);
+      System.out.println("Horario:" + horainicio + " as " + horafim);
+      System.out.println("Insert into Missa Concluido");
+    }
+  }    
     /**
      * @param args the command line arguments
      */
@@ -321,10 +345,6 @@ int id = Integer.parseInt(lblOradorID.getText());
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -337,8 +357,9 @@ int id = Integer.parseInt(lblOradorID.getText());
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botao;
     private javax.swing.JComboBox<String> comboOrador;
+    private javax.swing.JFormattedTextField horaFim;
+    private javax.swing.JFormattedTextField horaInicio;
     private javax.swing.JButton jButton1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -346,9 +367,9 @@ int id = Integer.parseInt(lblOradorID.getText());
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblOradorID;
-    private javax.swing.JTextField txtTitulo;
+    private javax.swing.JTextField txtdescricao;
+    public javax.swing.JTextField txttitulo;
     // End of variables declaration//GEN-END:variables
 }
