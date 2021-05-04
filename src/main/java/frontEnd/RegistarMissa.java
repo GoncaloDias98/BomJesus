@@ -238,6 +238,9 @@ private Inicio inicio;
     private void botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoActionPerformed
         try {
             postDB();
+            ListaMissa missa = new ListaMissa();
+            missa.setVisible(true);
+            this.dispose();
         } catch (Exception ex) {
             Logger.getLogger(RegistarMissa.class.getName()).log(Level.SEVERE, null, ex);
         }

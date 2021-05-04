@@ -25,7 +25,7 @@ public class ListaBoda extends javax.swing.JFrame {
     /**
      * Creates new form ListaMissa
      */
-    ListaMissaDetalhe detalhe = new ListaMissaDetalhe();
+    ListaBodaDetalhe detalhe = new ListaBodaDetalhe();
     public ListaBoda() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);  
@@ -42,7 +42,7 @@ public class ListaBoda extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tblListaMissas = new javax.swing.JTable();
+        tblListaBodas = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,9 +56,9 @@ public class ListaBoda extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel1.setText("Lista Missas");
+        jLabel1.setText("Lista Bodas");
 
-        tblListaMissas.setModel(new javax.swing.table.DefaultTableModel(
+        tblListaBodas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -69,12 +69,12 @@ public class ListaBoda extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblListaMissas.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblListaBodas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblListaMissasMouseClicked(evt);
+                tblListaBodasMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(tblListaMissas);
+        jScrollPane3.setViewportView(tblListaBodas);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton1.setText("Registar Missa");
@@ -89,7 +89,7 @@ public class ListaBoda extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(570, Short.MAX_VALUE)
+                .addContainerGap(581, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(383, 383, 383)
                 .addComponent(jButton1)
@@ -127,10 +127,10 @@ public class ListaBoda extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowOpened
 
-    private void tblListaMissasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListaMissasMouseClicked
+    private void tblListaBodasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListaBodasMouseClicked
         
-        int index = tblListaMissas.getSelectedRow();
-        TableModel model = tblListaMissas.getModel();
+        int index = tblListaBodas.getSelectedRow();
+        TableModel model = tblListaBodas.getModel();
         
         String id = model.getValueAt(index, 0).toString();
         String titulo = model.getValueAt(index, 1).toString();
@@ -149,7 +149,7 @@ public class ListaBoda extends javax.swing.JFrame {
         detalhe.jLabel_orador.setText(orador);
         detalhe.jLabel_horainicio.setText(horaInicio);
         detalhe.jLabel_horafim.setText(horaFim);
-    }//GEN-LAST:event_tblListaMissasMouseClicked
+    }//GEN-LAST:event_tblListaBodasMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         RegistarMissa missa = new RegistarMissa();
@@ -170,13 +170,13 @@ public class ListaBoda extends javax.swing.JFrame {
         
        
       try{
-          String query = "SELECT idMissa,titulo,descricao,Orador_nome, Orador_cargo,horaInicio, horaFim FROM missa";
+          String query = "SELECT idBoda,titulo,descricao,Orador_nome, Orador_cargo,horaInicio, horaFim FROM boda";
           Statement st = conn.createStatement();
           ResultSet rs = st.executeQuery(query);
          
           while(rs.next()){
               model.addRow(new Object[] {
-                  rs.getString("idMissa"),
+                  rs.getString("idBoda"),
                   rs.getString("titulo"),
                   rs.getString("descricao"),
                   rs.getString("Orador_cargo")+ " " + rs.getString("orador_nome"),
@@ -187,7 +187,7 @@ public class ListaBoda extends javax.swing.JFrame {
           rs.close();
           st.close();
           conn.close();
-          tblListaMissas.setModel(model);
+          tblListaBodas.setModel(model);
       }catch(Exception e){System.out.println(e);}
 
   }
@@ -232,6 +232,6 @@ public class ListaBoda extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable tblListaMissas;
+    private javax.swing.JTable tblListaBodas;
     // End of variables declaration//GEN-END:variables
 }

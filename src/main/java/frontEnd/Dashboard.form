@@ -186,18 +186,18 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jButton2" min="-2" pref="160" max="-2" attributes="0"/>
+                      <Component id="btnViaSacra" min="-2" pref="160" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                      <Component id="jButton3" min="-2" pref="160" max="-2" attributes="0"/>
+                      <Component id="btnEventos" min="-2" pref="160" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="177" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="126" max="-2" attributes="0"/>
-                      <Component id="jToggleButton1" min="-2" pref="160" max="-2" attributes="0"/>
+                      <Component id="btnMissas" min="-2" pref="160" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                      <Component id="jToggleButton2" min="-2" pref="160" max="-2" attributes="0"/>
+                      <Component id="btnBatizados" min="-2" pref="160" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="161" max="-2" attributes="0"/>
+                      <Component id="btnCasamentos" min="-2" pref="161" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="61" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -207,53 +207,59 @@
                   <Group type="102" attributes="0">
                       <EmptySpace pref="69" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jToggleButton2" alignment="3" min="-2" pref="130" max="-2" attributes="0"/>
-                          <Component id="jToggleButton1" alignment="3" min="-2" pref="130" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="btnBatizados" alignment="3" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="btnMissas" alignment="3" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="btnCasamentos" min="-2" pref="130" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButton2" alignment="3" min="-2" pref="130" max="-2" attributes="0"/>
-                          <Component id="jButton3" alignment="3" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="btnViaSacra" alignment="3" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="btnEventos" alignment="3" min="-2" pref="130" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton2">
+            <Component class="javax.swing.JToggleButton" name="btnBatizados">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Batizados"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBatizadosActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton1">
+            <Component class="javax.swing.JToggleButton" name="btnMissas">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Missas"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMissasActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="btnCasamentos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Casamentos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCasamentosActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="btnViaSacra">
               <Properties>
                 <Property name="text" type="java.lang.String" value="ViaSacra"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnViaSacraActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton3">
+            <Component class="javax.swing.JButton" name="btnEventos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Eventos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEventosActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

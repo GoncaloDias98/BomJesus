@@ -56,7 +56,7 @@ public class ListaCasamento extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel1.setText("Lista Missas");
+        jLabel1.setText("Lista Casamentos");
 
         tblListaMissas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -89,7 +89,7 @@ public class ListaCasamento extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(570, Short.MAX_VALUE)
+                .addContainerGap(470, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(383, 383, 383)
                 .addComponent(jButton1)
