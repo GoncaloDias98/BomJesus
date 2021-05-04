@@ -21,12 +21,12 @@ import javax.swing.table.TableModel;
  *
  * @author gonca
  */
-public class ListaMissa extends javax.swing.JFrame {
+public class ListaBoda extends javax.swing.JFrame {
     /**
      * Creates new form ListaMissa
      */
     ListaMissaDetalhe detalhe = new ListaMissaDetalhe();
-    public ListaMissa() {
+    public ListaBoda() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);  
     }
@@ -123,7 +123,7 @@ public class ListaMissa extends javax.swing.JFrame {
         try {
             getDB();
         } catch (Exception ex) {
-            Logger.getLogger(ListaMissa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListaBoda.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowOpened
 
@@ -209,20 +209,21 @@ public class ListaMissa extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListaMissa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaBoda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListaMissa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaBoda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListaMissa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaBoda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListaMissa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaBoda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListaMissa().setVisible(true);
+                new ListaBoda().setVisible(true);
             }
         });
     }

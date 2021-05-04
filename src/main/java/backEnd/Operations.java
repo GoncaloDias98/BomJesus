@@ -17,11 +17,7 @@ public class Operations {
         try{
             Connection myConn =Inicio.getConnection();
             String mySqlQuery = 
-                    "SELECT idAdministrador, username FROM administrador WHERE username = '"+
-                    username+
-                    "' AND Password = '"+
-                    password+
-                    "'";
+                    "SELECT idAdministrador, username FROM administrador WHERE username = '"+username+"' AND Password = '"+password+"'";
             PreparedStatement preparedStatement = myConn.prepareStatement(mySqlQuery);
             ResultSet resultSet = preparedStatement.executeQuery();
             
