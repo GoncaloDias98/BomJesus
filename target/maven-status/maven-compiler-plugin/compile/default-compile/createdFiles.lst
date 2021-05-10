@@ -24,6 +24,7 @@ frontEnd\ListaBatizadoDetalhe$1.class
 frontEnd\RegistarViaSacra$2.class
 frontEnd\RegistarOrador$1.class
 frontEnd\ListaMissa$3.class
+frontEnd\Dashboard$9.class
 frontEnd\RegistarBoda$3.class
 frontEnd\RegistarViaSacra$5.class
 frontEnd\ListaViaSacra$1.class
@@ -57,6 +58,7 @@ frontEnd\ListaCasamento$1.class
 frontEnd\ListaEvento$2.class
 frontEnd\RegistarMissa$1.class
 frontEnd\ListaOrador$4.class
+frontEnd\ListaMissa$5.class
 frontEnd\ListaMissa$2.class
 frontEnd\RegistarBoda$1.class
 frontEnd\RegistarBoda$4.class

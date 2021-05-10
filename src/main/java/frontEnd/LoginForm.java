@@ -11,8 +11,7 @@ public class LoginForm extends javax.swing.JFrame {
      * Creates new form LoginForm
      */
     public LoginForm() {
-        initComponents();
-        setExtendedState(JFrame.MAXIMIZED_BOTH);  
+        initComponents(); 
     }
 
     /**
@@ -211,7 +210,7 @@ public class LoginForm extends javax.swing.JFrame {
                 new Dashboard().setVisible(true);
                 this.dispose();
             }else{
-                JOptionPane.showMessageDialog(this, "Please type correct Username/Password!");
+                JOptionPane.showMessageDialog(this, "Por Favor insira o/a Username/Password corretos!");
             }
             
         }catch (Exception exception){
