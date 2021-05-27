@@ -52,4 +52,13 @@ public class Inicio {
         return hora;
     }
 
+  public String Datatexto(LocalDate data) {
+        DateTimeFormatter formatodata = DateTimeFormatter.ofPattern("YYYY/MM/DD");
+
+        //crio o objeto localdate que formata a informação intoduzida para o formato que eu parameterizei em formatodata
+        String hora = formatodata.format(data);
+
+        return hora;
+    }
+  
 }

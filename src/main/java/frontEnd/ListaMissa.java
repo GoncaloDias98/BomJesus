@@ -11,11 +11,17 @@ import static frontEnd.Inicio.getConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.RowFilter.ComparisonType;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 
 /**
@@ -30,13 +36,18 @@ public class ListaMissa extends javax.swing.JFrame {
     public ListaMissa() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);  
-        
+        this.jpFiltro.setVisible(false);
+
         
          if(LoginSession.isLoggedIn == true){
-             jButton1.setVisible(true);
+             btnRegistarMissa.setVisible(true);
          }else{
-             jButton1.setVisible(false);
+             btnRegistarMissa.setVisible(false);
          }
+        // ordenar();
+        fillCombo();
+        this.comboOrador.insertItemAt("", 0);
+        this.comboOrador.setSelectedIndex(0);
     }
 
     /**
@@ -51,8 +62,16 @@ public class ListaMissa extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblListaMissas = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnRegistarMissa = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        lblFiltro = new javax.swing.JLabel();
+        jpFiltro = new javax.swing.JPanel();
+        barraProcuraTxt = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        comboOrador = new javax.swing.JComboBox<>();
+        btnAplicar = new javax.swing.JButton();
+        btnLimpar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -85,11 +104,11 @@ public class ListaMissa extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tblListaMissas);
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton1.setText("Registar Missa");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistarMissa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnRegistarMissa.setText("Registar Missa");
+        btnRegistarMissa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnRegistarMissaActionPerformed(evt);
             }
         });
 
@@ -101,6 +120,89 @@ public class ListaMissa extends javax.swing.JFrame {
             }
         });
 
+        lblFiltro.setText("Filtro +");
+        lblFiltro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblFiltroMouseClicked(evt);
+            }
+        });
+        lblFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                lblFiltroKeyPressed(evt);
+            }
+        });
+
+        barraProcuraTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                barraProcuraTxtActionPerformed(evt);
+            }
+        });
+        barraProcuraTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                barraProcuraTxtKeyReleased(evt);
+            }
+        });
+
+        jLabel4.setText("Título");
+
+        jLabel2.setText("Orador");
+
+        comboOrador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboOradorActionPerformed(evt);
+            }
+        });
+
+        btnAplicar.setText("Aplicar");
+        btnAplicar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAplicarActionPerformed(evt);
+            }
+        });
+
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpFiltroLayout = new javax.swing.GroupLayout(jpFiltro);
+        jpFiltro.setLayout(jpFiltroLayout);
+        jpFiltroLayout.setHorizontalGroup(
+            jpFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpFiltroLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpFiltroLayout.createSequentialGroup()
+                        .addComponent(btnLimpar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAplicar))
+                    .addGroup(jpFiltroLayout.createSequentialGroup()
+                        .addComponent(barraProcuraTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboOrador, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jpFiltroLayout.setVerticalGroup(
+            jpFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpFiltroLayout.createSequentialGroup()
+                .addGroup(jpFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(barraProcuraTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(comboOrador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(jpFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLimpar)
+                    .addComponent(btnAplicar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,11 +213,19 @@ public class ListaMissa extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(429, 429, 429)
-                .addComponent(jButton1)
+                .addComponent(btnRegistarMissa)
                 .addGap(35, 35, 35))
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1311, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(210, 210, 210)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jpFiltro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -123,11 +233,15 @@ public class ListaMissa extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnRegistarMissa)
                     .addComponent(jLabel1)
                     .addComponent(jButton2))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblFiltro)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jpFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -142,28 +256,37 @@ public class ListaMissa extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try {
             getDB();
+            TableColumnModel columnModel = tblListaMissas.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(10);
+        columnModel.getColumn(1).setPreferredWidth(10);
         } catch (Exception ex) {
             Logger.getLogger(ListaMissa.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowOpened
 
+    private void ordenar(){
+        DefaultTableModel tm = (DefaultTableModel) this.tblListaMissas.getModel();
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(tm);
+        tblListaMissas.setRowSorter(sorter);
+    }
+    
     private void tblListaMissasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListaMissasMouseClicked
         
         int index = tblListaMissas.getSelectedRow();
         TableModel model = tblListaMissas.getModel();
         
-        String id = model.getValueAt(index, 0).toString();
-        String titulo = model.getValueAt(index, 1).toString();
-        String descricao = model.getValueAt(index, 2).toString();
-        String orador = model.getValueAt(index, 3).toString();
-        String horaInicio = model.getValueAt(index, 4).toString();
-        String horaFim = model.getValueAt(index, 5).toString();
+        String dia = model.getValueAt(index, 0).toString();
+        String titulo = model.getValueAt(index, 3).toString();
+        String descricao = model.getValueAt(index, 4).toString();
+        String orador = model.getValueAt(index, 5).toString();
+        String horaInicio = model.getValueAt(index, 1).toString();
+        String horaFim = model.getValueAt(index, 2).toString();
         
         detalhe.setVisible(true);
         detalhe.pack();
         detalhe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
-        detalhe.jLabel_id.setText(id);
+        detalhe.jLabel_dia.setText(dia);
         detalhe.jLabel_titulo.setText(titulo);
         detalhe.jLabel_descricao.setText(descricao);
         detalhe.jLabel_orador.setText(orador);
@@ -171,50 +294,139 @@ public class ListaMissa extends javax.swing.JFrame {
         detalhe.jLabel_horafim.setText(horaFim);
     }//GEN-LAST:event_tblListaMissasMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnRegistarMissaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistarMissaActionPerformed
         RegistarMissa missa = new RegistarMissa();
         missa.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnRegistarMissaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void lblFiltroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFiltroMouseClicked
+        if (this.jpFiltro.isVisible()) {
+            this.lblFiltro.setText("Filtro +");
+            this.jpFiltro.setVisible(false);
+        } else {
+            this.lblFiltro.setText("Filtro -");
+            this.jpFiltro.setVisible(true);
+
+        }
+    }//GEN-LAST:event_lblFiltroMouseClicked
+
+    private void lblFiltroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblFiltroKeyPressed
+
+    }//GEN-LAST:event_lblFiltroKeyPressed
+
+    private void barraProcuraTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barraProcuraTxtActionPerformed
+
+    }//GEN-LAST:event_barraProcuraTxtActionPerformed
+
+    private void barraProcuraTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_barraProcuraTxtKeyReleased
+
+    }//GEN-LAST:event_barraProcuraTxtKeyReleased
+
+    private void comboOradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboOradorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboOradorActionPerformed
+
+    private void btnAplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarActionPerformed
+        filtros();
+    }//GEN-LAST:event_btnAplicarActionPerformed
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        this.barraProcuraTxt.setText("");
+        this.comboOrador.setSelectedIndex(0);
+        filtros();
+    }//GEN-LAST:event_btnLimparActionPerformed
+
     public void getDB() throws Exception {
         Connection conn = getConnection();
-      DefaultTableModel model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel();
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(model);
         //Cria as colunas da tabela
-        model.addColumn("id");
+        model.addColumn("Dia");
+        model.addColumn("Hora de Inicio");
+        model.addColumn("Hora de Fim");
         model.addColumn("Titulo");
         model.addColumn("Descrição");
         model.addColumn("Orador");
-        model.addColumn("Hora de Inicio");
-        model.addColumn("Hora de Fim");
-        
-       
-      try{
-          String query = "SELECT idMissa,titulo,descricao,Orador_nome, Orador_cargo,horaInicio, horaFim FROM missa";
-          Statement st = conn.createStatement();
-          ResultSet rs = st.executeQuery(query);
-         
-          while(rs.next()){
-              model.addRow(new Object[] {
-                  rs.getString("idMissa"),
-                  rs.getString("titulo"),
-                  rs.getString("descricao"),
-                  rs.getString("Orador_cargo")+ " " + rs.getString("orador_nome"),
-                  rs.getString("horaInicio"),
-                  rs.getString("horaFim")
-              });
-          }
-          rs.close();
-          st.close();
-          conn.close();
-          tblListaMissas.setModel(model);
-      }catch(Exception e){System.out.println(e);}
+        try{
+            String query = "SELECT idMissa,titulo,descricao,Orador_nome, Orador_cargo,horaInicio, horaFim, dia FROM missa";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            while(rs.next()){
+                model.addRow(new Object[] {
+                    rs.getString("dia"),
+                    rs.getString("horaInicio"),
+                    rs.getString("horaFim"),
+                    rs.getString("titulo"),
+                    rs.getString("descricao"),
+                    rs.getString("Orador_cargo")+ " " + rs.getString("orador_nome")
+                });
+            }
+            rs.close();
+            st.close();
+            conn.close();
+            tblListaMissas.setModel(model);
+            tblListaMissas.setRowSorter(sorter);
+            tblListaMissas.getRowSorter().toggleSortOrder(0);
+            
+        }catch(Exception e){System.out.println(e);}
 
   }
+    
+    private void filtros() {
+        //resgata o TableModel da sua JTable
+        DefaultTableModel tm = (DefaultTableModel) this.tblListaMissas.getModel();
+        
+        //Cria um RowSorter baseado no TableModel resgatado
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tm);
+        
+        //Aplica o RowSorte na na JTable
+        tblListaMissas.setRowSorter(tr);
+
+        String titulo = this.barraProcuraTxt.getText();
+        // estado = this.cmbEstado.getSelectedItem().toString();
+
+        //String criadopor = this.cmbCriadoPor.getSelectedItem().toString();
+        String orador = this.comboOrador.getSelectedItem().toString();
+
+        //cria uma lista para guardar os filtros de cada coluna
+        ArrayList<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>();
+        filters.add(RowFilter.regexFilter(titulo, 1));
+        //filters.add( RowFilter.dateFilter(ComparisonType.AFTER, horaInicio));
+
+        //RowFilter.dateFilter(ComparisonType.AFTER, date, indices)sistema.Data(datainicio));
+        //RowFilter.dateFilter(ComparisonType.AFTER, date, indices)
+        filters.add(RowFilter.regexFilter(orador, 3));
+        // filters.add(RowFilter.regexFilter(estado, 5));
+
+        //aplica os filtros no RowSorter que foi criado no construtor
+        //utilizando o andFilter
+        tr.setRowFilter(RowFilter.andFilter(filters));
+
+    }
+ void fillCombo(){
+  try{
+      Connection conn = getConnection();
+      String sql ="SELECT nome, cargo from orador";
+      Statement st = conn.prepareStatement(sql);
+      ResultSet rs = st.executeQuery(sql);
+      
+      while(rs.next()){
+      String name = rs.getString("nome");
+      String cargo = rs.getString("cargo");
+      comboOrador.addItem(cargo + " " +name);
+      }
+      
+  
+  }catch(Exception e){
+  JOptionPane.showMessageDialog(null, e);
+  }
+}
     
     /**
      * @param args the command line arguments
@@ -252,10 +464,18 @@ public class ListaMissa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField barraProcuraTxt;
+    private javax.swing.JButton btnAplicar;
+    private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton btnRegistarMissa;
+    private javax.swing.JComboBox<String> comboOrador;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JPanel jpFiltro;
+    private javax.swing.JLabel lblFiltro;
     private javax.swing.JTable tblListaMissas;
     // End of variables declaration//GEN-END:variables
 }

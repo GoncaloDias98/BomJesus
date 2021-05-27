@@ -28,7 +28,7 @@ public class ListaMissaDetalhe extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel_id = new javax.swing.JLabel();
+        jLabel_dia = new javax.swing.JLabel();
         jLabel_titulo = new javax.swing.JLabel();
         jLabel_descricao = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -42,9 +42,9 @@ public class ListaMissaDetalhe extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("ID");
+        jLabel1.setText("Dia");
 
-        jLabel_id.setText("jLabel2");
+        jLabel_dia.setText("jLabel2");
 
         jLabel_titulo.setText("jLabel2");
 
@@ -73,30 +73,32 @@ public class ListaMissaDetalhe extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel_horafim)
-                    .addComponent(jLabel_horainicio)
-                    .addComponent(jLabel_orador)
-                    .addComponent(jLabel_titulo)
-                    .addComponent(jLabel_id)
-                    .addComponent(jLabel_descricao))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel_dia))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel_horafim)
+                            .addComponent(jLabel_horainicio)
+                            .addComponent(jLabel_titulo)
+                            .addComponent(jLabel_descricao)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel_orador)))
                 .addContainerGap(256, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel_id))
-                .addGap(18, 18, 18)
+                .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_titulo)
                     .addComponent(jLabel2))
@@ -104,11 +106,15 @@ public class ListaMissaDetalhe extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_descricao)
                     .addComponent(jLabel4))
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_orador)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel_dia))
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_horainicio)
                     .addComponent(jLabel5))
@@ -165,9 +171,9 @@ public class ListaMissaDetalhe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     public javax.swing.JLabel jLabel_descricao;
+    public javax.swing.JLabel jLabel_dia;
     public javax.swing.JLabel jLabel_horafim;
     public javax.swing.JLabel jLabel_horainicio;
-    public javax.swing.JLabel jLabel_id;
     public javax.swing.JLabel jLabel_orador;
     public javax.swing.JLabel jLabel_titulo;
     // End of variables declaration//GEN-END:variables

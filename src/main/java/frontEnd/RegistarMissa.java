@@ -10,9 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -23,7 +22,6 @@ import javax.swing.JOptionPane;
  * @author gonca
  */
 public class RegistarMissa extends javax.swing.JFrame {
-private Inicio inicio;
 
     /**
      * Creates new form RegistarMissaa
@@ -35,6 +33,7 @@ private Inicio inicio;
         fillCombo();
         horaInicio.setText(inicio.Horatexto(LocalTime.now()));
         horaFim.setText(inicio.Horatexto(LocalTime.now()));
+        txtDia.setText(inicio.Datatexto(LocalDate.now()));
     }
 
 /**
@@ -62,6 +61,8 @@ private Inicio inicio;
         lblOradorID = new javax.swing.JLabel();
         horaInicio = new javax.swing.JFormattedTextField();
         lblCargo = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtDia = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -129,6 +130,15 @@ private Inicio inicio;
 
         lblCargo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel7.setText("Dia");
+
+        try {
+            txtDia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####/##/##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -156,9 +166,15 @@ private Inicio inicio;
                 .addComponent(txtdescricao)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtDia, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(comboOrador, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
@@ -182,7 +198,11 @@ private Inicio inicio;
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(comboOrador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblOradorID, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
@@ -300,6 +320,7 @@ private Inicio inicio;
     String titulo = txttitulo.getText();
     String descricao = txtdescricao.getText();
     String orador = (String) comboOrador.getSelectedItem();
+    String dia = txtDia.getText();
     String horainicio = horaInicio.getText();
     String horafim = horaFim.getText();
     int id = Integer.parseInt(lblOradorID.getText());
@@ -308,7 +329,7 @@ private Inicio inicio;
     try{
       System.out.println(horainicio);
       Connection conn = getConnection();
-      PreparedStatement posted = conn.prepareStatement("INSERT INTO missa (Orador_idOrador, Orador_nome, Orador_cargo, horaInicio, horaFim, descricao, titulo) VALUES ('"+id+"','"+orador+"','"+cargo+"','"+horainicio+"','"+horafim+"','"+descricao+"','"+titulo+"')");
+      PreparedStatement posted = conn.prepareStatement("INSERT INTO missa (Orador_idOrador,dia, Orador_nome, Orador_cargo, horaInicio, horaFim, descricao, titulo) VALUES ('"+id+"','"+dia+"','"+orador+"','"+cargo+"','"+horainicio+"','"+horafim+"','"+descricao+"','"+titulo+"')");
       posted.executeUpdate();
   } catch (Exception e){
       System.out.println(e);
@@ -369,9 +390,11 @@ private Inicio inicio;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblOradorID;
+    private javax.swing.JFormattedTextField txtDia;
     private javax.swing.JTextField txtdescricao;
     public javax.swing.JTextField txttitulo;
     // End of variables declaration//GEN-END:variables

@@ -143,7 +143,7 @@ public class ListaOrador extends javax.swing.JFrame {
         detalhe.pack();
         detalhe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
-        detalhe.jLabel_id.setText(id);
+        detalhe.jLabel_dia.setText(id);
         detalhe.jLabel_titulo.setText(titulo);
         detalhe.jLabel_descricao.setText(descricao);
         detalhe.jLabel_orador.setText(orador);

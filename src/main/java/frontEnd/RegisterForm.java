@@ -1,15 +1,21 @@
 package frontEnd;
 import backEnd.LoginSession;
 import backEnd.Operations;
+import backEnd.bcrypt;
+import static frontEnd.Inicio.getConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 
-public class LoginForm extends javax.swing.JFrame {
-
+public class RegisterForm extends javax.swing.JFrame {
     /**
      * Creates new form LoginForm
      */
-    public LoginForm() {
+    public RegisterForm() {
         initComponents(); 
     }
 
@@ -131,13 +137,13 @@ public class LoginForm extends javax.swing.JFrame {
                         .addGap(0, 67, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setLayout(new java.awt.GridLayout(1, 1, 5, 0));
 
-        loginBtn.setText("LOGIN");
+        loginBtn.setText("Registar");
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginBtnActionPerformed(evt);
@@ -172,7 +178,7 @@ public class LoginForm extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -191,31 +197,44 @@ public class LoginForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-        // TODO add your handling code here:
-
-        Operations operations = new Operations();
-        try{
+        try {
+            // TODO add your handling code here:
+            Operations operations = new Operations();
             String usernameStr = usernameTxt.getText();
-            String passwordStr = passwordTxt.getText();
-            
-            if(operations.isLogin(usernameStr, passwordStr, this)){
-                LoginSession.isLoggedIn = true;
+            if(operations.UsernameExists(usernameStr, this)){
+                JOptionPane.showMessageDialog(this, "Este username já existe!");  
+            }else{
+                postDB();
                 new Dashboard().setVisible(true);
                 this.dispose();
-            }else{
-                JOptionPane.showMessageDialog(this, "Por Favor insira o/a Username/Password corretos!");
+                            
             }
-            
-        }catch (Exception exception){
-            JOptionPane.showMessageDialog(this, "Please type correct information");
+        } catch (Exception ex) {
+            Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_loginBtnActionPerformed
 
-    public String getPasswordTxt() {
-        return passwordTxt.getText();
-    }
-
+    void postDB() throws Exception{
+   
+    String username = usernameTxt.getText();
+    String password = passwordTxt.getText();
+    String hashedpwd = BCrypt.hashpw(password, BCrypt.gensalt(10));
     
+    try{
+      Connection conn = getConnection();
+      PreparedStatement posted = conn.prepareStatement("INSERT INTO administrador (username, password) VALUES ('"+username+"','"+hashedpwd+"')");
+      posted.executeUpdate();
+  } catch (Exception e){
+      System.out.println(e);
+    }
+    finally {
+      System.out.println("Inserted into Administrador");
+    }
+  }    
+    
+    public String getUsernameTxt() {
+        return usernameTxt.getText();
+    }
     
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
         // TODO add your handling code here:
@@ -239,21 +258,23 @@ public class LoginForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginForm().setVisible(true);
+                new RegisterForm().setVisible(true);
             }
         });
     }
